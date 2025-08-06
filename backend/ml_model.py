@@ -1,75 +1,69 @@
-from sklearn.neighbors import KDTree
-import numpy as np
 import json
 from datetime import datetime
-from geopy.distance import geodesic # <-- IMPORT THE NEW LIBRARY
+from geopy.distance import geodesic
 
 def find_best_donors(patient_request):
     """
     Finds the best donors for a given patient request.
-    VERSION 3:
-    - Calculates geographic distance.
-    - Uses a weighted score of donation recency and distance.
+    VERSION 4:
+    - Calculates a 'Trust Score' based on donation history and civic score.
+    - Ranks donors based on a combination of match score and trust score.
     """
-    print(f"Received request: {patient_request}")
+    print(f"AI Model V4 running for request: {patient_request}")
 
     try:
         with open('users.json', 'r') as f:
             users = json.load(f)
 
+        # Find patient details
         patient_list = [u for u in users if u['role'] == 'patient' and u['id'] == patient_request['patient_id']]
         if not patient_list:
-            print(f"Error: Patient with ID {patient_request['patient_id']} not found.")
             return []
-        
         patient = patient_list[0]
         patient_coords = (patient['location']['lat'], patient['location']['lon'])
         
+        # Find compatible donors
         donors = [u for u in users if u['role'] == 'donor' and u['blood_type'] == patient_request['blood_type']]
-
         if not donors:
-            print("No compatible donors found.")
             return []
 
         ranked_donors = []
         for donor in donors:
-            donor_coords = (donor['location']['lat'], donor['location']['lon'])
-            
-            # Feature 2: Calculate distance in kilometers
-            distance_km = geodesic(patient_coords, donor_coords).kilometers
-
-            # Feature 3: Create a smarter, weighted score
-            # Score 1: Time since last donation (more days is better)
+            # --- CALCULATE MATCH SCORE (recency + distance) ---
+            distance_km = geodesic(patient_coords, (donor['location']['lat'], donor['location']['lon'])).kilometers
             try:
-                last_donation = datetime.strptime(donor['last_donation_date'], '%Y-%m-%d')
-                days_since_donation = (datetime.now() - last_donation).days
-                time_score = days_since_donation
+                days_since_donation = (datetime.now() - datetime.strptime(donor['last_donation_date'], '%Y-%m-%d')).days
             except (ValueError, KeyError):
-                time_score = 90  # Default score if date is missing
+                days_since_donation = 90  # Default if no date
 
-            # Score 2: Distance (closer is better). We invert it.
-            # Adding 1 to avoid division by zero.
             distance_score = 100 / (1 + distance_km)
+            recency_score = min(days_since_donation, 365) # Cap at 1 year
+            match_score = (0.4 * distance_score) + (0.6 * (recency_score / 3.65)) # Weighted and normalized
 
-            # Combine scores with weights (60% time, 40% distance)
-            # We normalize by typical values to balance the weights
-            final_score = (0.6 * (time_score / 365)) + (0.4 * (distance_score / 100))
-            final_score = final_score * 100 # Scale it up to be a nice number
+            # --- CALCULATE TRUST SCORE (reliability and engagement) ---
+            donation_count = donor.get('donations', 0)
+            civic_score = donor.get('civic_score', 0)
+            # Formula: 10 points per donation + 1 point per 10 civic points. Capped at 100.
+            trust_score = min(100, (donation_count * 10) + (civic_score / 10))
+
+            # --- COMBINE SCORES FOR FINAL RANKING ---
+            # 70% Trust, 30% immediate Match convenience
+            final_rank = (0.7 * trust_score) + (0.3 * match_score)
 
             ranked_donors.append({
                 "donor_id": donor['id'],
                 "username": donor['username'],
                 "blood_type": donor['blood_type'],
-                "location": donor['location'],
-                "distance_km": round(distance_km, 1), # <-- ADD THE NEW DATA
-                "score": round(final_score, 2)       # The new, smarter score
+                "distance_km": round(distance_km, 1),
+                "trust_score": round(trust_score, 1), # The new trust score
+                "final_rank": round(final_rank, 2)    # The new final ranking metric
             })
 
-        # Sort by the new final_score in descending order
-        ranked_donors.sort(key=lambda x: x['score'], reverse=True)
-        print(f"Found and ranked {len(ranked_donors)} donors.")
+        # Sort by the new final_rank in descending order
+        ranked_donors.sort(key=lambda x: x['final_rank'], reverse=True)
+        print(f"AI successfully ranked {len(ranked_donors)} donors.")
         return ranked_donors
 
     except Exception as e:
-        print(f"An unexpected error occurred in find_best_donors: {e}")
+        print(f"An unexpected error occurred in AI model: {e}")
         return []

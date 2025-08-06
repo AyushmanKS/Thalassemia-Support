@@ -5,8 +5,11 @@
         "password": "password",
         "role": "donor",
         "blood_type": "A+",
-        "location": { "lat": 12.9716, "lon": 77.5946 },
-        "last_donation_date": "2025-01-15",
+        "location": {
+            "lat": 12.9716,
+            "lon": 77.5946
+        },
+        "last_donation_date": "2025-07-15",
         "donations": 8,
         "civic_score": 420
     },
@@ -16,7 +19,12 @@
         "password": "password",
         "role": "patient",
         "blood_type": "A+",
-        "location": { "lat": 12.9345, "lon": 77.6244 }
+        "location": {
+            "lat": 12.9345,
+            "lon": 77.6244
+        },
+        "transfusion_interval_days": 21,
+        "next_transfusion_due_date": "2025-08-27"
     },
     {
         "id": 3,
@@ -24,7 +32,10 @@
         "password": "password",
         "role": "donor",
         "blood_type": "O-",
-        "location": { "lat": 12.9550, "lon": 77.6100 },
+        "location": {
+            "lat": 12.955,
+            "lon": 77.61
+        },
         "last_donation_date": "2025-06-20",
         "donations": 3,
         "civic_score": 160
@@ -35,7 +46,10 @@
         "password": "password",
         "role": "donor",
         "blood_type": "A+",
-        "location": { "lat": 12.9300, "lon": 77.6300 },
+        "location": {
+            "lat": 12.93,
+            "lon": 77.63
+        },
         "last_donation_date": "2025-05-10",
         "donations": 12,
         "civic_score": 650
@@ -46,6 +60,11 @@
         "password": "password",
         "role": "patient",
         "blood_type": "O-",
-        "location": { "lat": 12.9600, "lon": 77.6000 }
+        "location": {
+            "lat": 12.96,
+            "lon": 77.6
+        },
+        "transfusion_interval_days": 28,
+        "next_transfusion_due_date": "2025-08-25"
     }
 ]

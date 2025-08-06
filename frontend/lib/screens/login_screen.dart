@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ? CircularProgressIndicator(color: Colors.white)
                     : ElevatedButton(
                         onPressed: _login,
-                        child: Text('Login Securely'),
+                        child: Text('Login'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.red[800],
