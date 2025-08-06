@@ -77,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icon(Icons.bloodtype, color: Colors.white, size: 80),
                 SizedBox(height: 20),
                 Text(
-                  'Blood Warriors',
+                  'CareConnect',
                   style: GoogleFonts.lato(
                     fontSize: 40,
                     fontWeight: FontWeight.bold,

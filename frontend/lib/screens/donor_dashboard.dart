@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:frontend/screens/blood_bank_screen.dart';
 
 class DonorDashboard extends StatefulWidget {
   final Map<String, dynamic> user;
@@ -12,107 +10,31 @@ class DonorDashboard extends StatefulWidget {
 }
 
 class _DonorDashboardState extends State<DonorDashboard> {
-  List<dynamic> _requests = [];
-  bool _isLoading = true;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchRequests();
-  }
-
-  Future<void> _fetchRequests() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      final response = await http.get(Uri.parse('http://10.0.2.2:5000/api/requests'));
-      if (response.statusCode == 200) {
-        setState(() {
-          _requests = json.decode(response.body);
-        });
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Could not fetch requests.'), backgroundColor: Colors.red),
-      );
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blueGrey[100]!, Colors.blueGrey[300]!],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: SafeArea(
-          child: RefreshIndicator(
-            onRefresh: _fetchRequests,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(24.0),
-                  child: Text(
-                    'Active Blood Requests',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.blueGrey[800]),
-                  ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Donor Dashboard', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+              SizedBox(height: 20),
+              Card(
+                elevation: 4,
+                child: ListTile(
+                  leading: Icon(Icons.business, color: Colors.deepPurple),
+                  title: Text('Live Blood Bank Status'),
+                  subtitle: Text('Check stock levels across the city'),
+                  trailing: Icon(Icons.arrow_forward),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => BloodBankScreen())),
                 ),
-                _isLoading
-                    ? Center(child: SpinKitFadingCircle(color: Colors.blueGrey[800], size: 50.0))
-                    : _requests.isEmpty
-                        ? Expanded(
-                            child: Center(
-                              child: Text('No active requests right now.\nPull down to refresh.', textAlign: TextAlign.center, style: TextStyle(color: Colors.blueGrey[600])),
-                            ),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              padding: EdgeInsets.symmetric(horizontal: 16),
-                              itemCount: _requests.length,
-                              itemBuilder: (context, index) {
-                                final request = _requests[index];
-                                return Card(
-                                  elevation: 4,
-                                  margin: EdgeInsets.symmetric(vertical: 8),
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                                  child: ListTile(
-                                    contentPadding: EdgeInsets.all(15),
-                                    leading: CircleAvatar(
-                                      radius: 25,
-                                      backgroundColor: Colors.redAccent,
-                                      child: Text(
-                                        request['blood_type'],
-                                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    title: Text('Request for ${request['blood_type']} Blood', style: TextStyle(fontWeight: FontWeight.bold)),
-                                    subtitle: Text('Status: ${request['status']}'),
-                                    trailing: ElevatedButton(
-                                      onPressed: () {},
-                                      child: Text('Accept'),
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: Colors.green,
-                                        foregroundColor: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-              ],
-            ),
+              ),
+              SizedBox(height: 20),
+              Text('This dashboard can be expanded with more donor-specific features.', style: TextStyle(color: Colors.grey)),
+            ],
           ),
         ),
       ),

@@ -1,0 +1,20 @@
+[
+    {
+        "id": "bb01",
+        "name": "Red Cross Blood Bank, City Hospital",
+        "city": "Mumbai",
+        "stock": { "A+": 22, "O-": 8, "B+": 15, "AB+": 5 }
+    },
+    {
+        "id": "bb02",
+        "name": "Lions Blood Bank, Central",
+        "city": "Delhi",
+        "stock": { "A+": 12, "O-": 3, "B+": 31, "AB+": 2 }
+    },
+    {
+        "id": "bb03",
+        "name": "Sanjeevan Blood Centre",
+        "city": "Bangalore",
+        "stock": { "A+": 45, "O-": 11, "B+": 19, "AB+": 9 }
+    }
+]

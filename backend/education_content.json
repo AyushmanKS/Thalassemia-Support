@@ -1,0 +1,23 @@
+[
+    {
+        "id": "diet01",
+        "category": "Diet & Nutrition",
+        "title": "Understanding Iron in Your Diet",
+        "summary": "Learn which foods to moderate to help manage iron overload.",
+        "content": "For Thalassemia patients, managing iron intake is crucial. While your body needs iron, transfusions provide a large amount, so you should moderate foods that are naturally very high in iron. These include red meat (like mutton and beef), organ meats (like liver), and iron-fortified breakfast cereals. Instead, focus on a balanced diet rich in calcium (dairy products), Vitamin C (from fruits like amla and oranges, which helps with iron absorption but is still vital), and other essential nutrients. Always consult your hematologist for a personalized diet plan."
+    },
+    {
+        "id": "treat01",
+        "category": "Treatment",
+        "title": "What is Chelation Therapy?",
+        "summary": "The vital process of removing excess iron from your body.",
+        "content": "Regular blood transfusions, while life-saving, lead to a condition called iron overload. Chelation therapy is the medical process of removing this excess iron. It involves taking specific medicines (chelators) that bind to the iron in your bloodstream, allowing it to be safely passed out of your body through urine or stool. Adhering to your chelation schedule is just as important as the transfusion itself for long-term health."
+    },
+    {
+        "id": "aware01",
+        "category": "Awareness & Prevention",
+        "title": "The Importance of the HbA2 Test",
+        "summary": "How a simple test can prevent Thalassemia Major.",
+        "content": "Thalassemia Major is a preventable genetic disease. It occurs when a child inherits the Thalassemia gene from *both* parents, who are typically 'Thalassemia Minors' (carriers) and often don't know it. The HbA2 electrophoresis test is a simple blood test that can identify if a person is a carrier. In India, it is highly recommended for all adults to get tested before marriage or planning a child to understand their risk and make informed decisions."
+    }
+]

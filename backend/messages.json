@@ -1,0 +1,16 @@
+[
+    {
+        "message_id": "msg01",
+        "patient_id": 2,
+        "sender_role": "patient",
+        "text": "Hello Doctor, I have been feeling a bit more tired than usual this week.",
+        "timestamp": "2025-08-10T10:00:00Z"
+    },
+    {
+        "message_id": "msg02",
+        "patient_id": 2,
+        "sender_role": "provider",
+        "text": "Hello. Thank you for letting me know. Let's check your pre-transfusion hemoglobin levels at your next appointment. Please don't worry.",
+        "timestamp": "2025-08-10T11:30:00Z"
+    }
+]

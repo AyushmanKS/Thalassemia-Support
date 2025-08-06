@@ -11,7 +11,17 @@
         },
         "last_donation_date": "2025-07-15",
         "donations": 8,
-        "civic_score": 420
+        "civic_score": 420,
+        "donation_history": [
+            {
+                "date": "2025-07-15",
+                "location": "Red Cross, City Hospital"
+            },
+            {
+                "date": "2025-04-12",
+                "location": "Lions Blood Bank"
+            }
+        ]
     },
     {
         "id": 2,
@@ -38,33 +48,7 @@
         },
         "last_donation_date": "2025-06-20",
         "donations": 3,
-        "civic_score": 160
-    },
-    {
-        "id": 4,
-        "username": "donor3",
-        "password": "password",
-        "role": "donor",
-        "blood_type": "A+",
-        "location": {
-            "lat": 12.93,
-            "lon": 77.63
-        },
-        "last_donation_date": "2025-05-10",
-        "donations": 12,
-        "civic_score": 650
-    },
-    {
-        "id": 5,
-        "username": "patient2",
-        "password": "password",
-        "role": "patient",
-        "blood_type": "O-",
-        "location": {
-            "lat": 12.96,
-            "lon": 77.6
-        },
-        "transfusion_interval_days": 28,
-        "next_transfusion_due_date": "2025-08-25"
+        "civic_score": 160,
+        "donation_history": []
     }
 ]
