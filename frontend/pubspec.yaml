@@ -21,6 +21,8 @@ dev_dependencies:
   google_fonts: ^6.3.0
   flutter_spinkit: ^5.2.1
   flutter_lints: ^6.0.0
+  google_nav_bar: ^5.0.7
+  glass_kit: ^4.0.1
 
 flutter:
 
