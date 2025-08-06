@@ -74,22 +74,63 @@ class _PatientDashboardState extends State<PatientDashboard> {
             _isLoading
                 ? SpinKitFadingCircle(color: Colors.red)
                 : Expanded(
-                    child: ListView.builder(
-                      itemCount: _matchedDonors.length,
-                      itemBuilder: (context, index) {
-                        final donor = _matchedDonors[index];
-                        return Card(
-                          elevation: 4,
-                          margin: EdgeInsets.symmetric(vertical: 8),
-                          child: ListTile(
-                            leading: CircleAvatar(child: Icon(Icons.person), backgroundColor: Colors.redAccent),
-                            title: Text(donor['username']),
-                            subtitle: Text('Blood Type: ${donor['blood_type']}'),
-                            trailing: Text('Score: ${donor['score'].toStringAsFixed(2)}'),
-                          ),
-                        );
-                      },
+                    child: // In frontend/lib/screens/patient_dashboard.dart
+
+// ... inside the build method, after the SizedBox ...
+
+_isLoading
+    ? SpinKitFadingCircle(color: Colors.red)
+    : Expanded(
+        child: ListView.builder(
+          itemCount: _matchedDonors.length,
+          itemBuilder: (context, index) {
+            final donor = _matchedDonors[index];
+            // NEW: Safely get the distance, provide a default if it doesn't exist
+            final distance = donor['distance_km']?.toString() ?? 'N/A';
+
+            return Card(
+              elevation: 4,
+              margin: EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ListTile(
+                leading: CircleAvatar(
+                  child: Icon(Icons.bloodtype, color: Colors.white),
+                  backgroundColor: Colors.redAccent,
+                ),
+                title: Text(
+                  donor['username'],
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                // THIS IS THE NEW SUBTITLE
+                subtitle: Text(
+                  'Distance: $distance km away',
+                  style: TextStyle(color: Colors.black54),
+                ),
+                trailing: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Match Score',
+                      style: TextStyle(fontSize: 10, color: Colors.grey),
                     ),
+                    Text(
+                      donor['score'].toStringAsFixed(1),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.green[700],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
                   ),
           ],
         ),
