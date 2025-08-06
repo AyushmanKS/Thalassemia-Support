@@ -1,0 +1,19 @@
+[
+    {
+        "id": 1,
+        "username": "donor1",
+        "password": "password",
+        "role": "donor",
+        "blood_type": "A+",
+        "location": { "lat": 12.9716, "lon": 77.5946 },
+        "last_donation_date": "2024-01-15"
+    },
+    {
+        "id": 2,
+        "username": "patient1",
+        "password": "password",
+        "role": "patient",
+        "blood_type": "A+",
+        "location": { "lat": 12.9345, "lon": 77.6244 }
+    }
+]

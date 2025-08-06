@@ -1,0 +1,8 @@
+[
+    {
+        "id": 1,
+        "patient_id": 2,
+        "blood_type": "A+",
+        "status": "pending"
+    }
+]
